@@ -35,6 +35,7 @@ h1,h2,h3{font-family:'Space Grotesk',sans-serif;letter-spacing:-.02em}
 .hidden{display:none!important}
 button{font-family:inherit;cursor:pointer}
 a{text-decoration:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* Layout */
 .app{display:flex;min-height:100vh}
@@ -104,6 +105,20 @@ a{text-decoration:none}
 .topbar-title span{font-size:11.5px;color:var(--muted2)}
 .mobile-nav{display:none}
 main{padding:26px 28px calc(var(--player-h) + 40px);width:100%;max-width:1080px;margin:0 auto}
+
+/* Tabs Superiores */
+.top-tabs{
+  display:flex;gap:8px;padding:12px 0 4px;margin-bottom:18px;
+  overflow-x:auto;scrollbar-width:none;
+}
+.top-tabs::-webkit-scrollbar{display:none}
+.tab-btn{
+  padding:8px 18px;border-radius:99px;border:1px solid var(--line);
+  background:var(--card2);color:var(--muted);font-size:13px;font-weight:600;
+  white-space:nowrap;transition:all .18s var(--ease);
+}
+.tab-btn:hover{color:var(--text);border-color:var(--line2)}
+.tab-btn.active{background:var(--grad);color:#06070d;border-color:transparent;box-shadow:0 4px 12px -4px rgba(125,211,252,.5)}
 
 /* Cards */
 .card{
@@ -226,37 +241,6 @@ select.input option{background:var(--card2);color:var(--text)}
 .empty p{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
 .empty span{font-size:12.5px;color:var(--muted2)}
 
-/* Playlists grid */
-.pl-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));margin-top:14px}
-.pl-card{
-  display:flex;align-items:center;gap:12px;padding:12px;border-radius:13px;
-  background:var(--bg2);border:1px solid var(--line);cursor:pointer;
-  transition:all .18s var(--ease);
-}
-.pl-card:hover{border-color:rgba(94,234,212,.35);transform:translateY(-2px)}
-.pl-art{
-  width:44px;height:44px;border-radius:11px;background:var(--grad);
-  display:grid;place-items:center;color:#06070d;flex-shrink:0;
-}
-.pl-art svg{width:19px;height:19px}
-.pl-info{flex:1;min-width:0}
-.pl-name{font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
-.pl-count{font-size:11px;color:var(--muted2)}
-
-/* Library playlists section */
-.lib-pl-row{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:thin}
-.lib-pl-row::-webkit-scrollbar{height:6px}
-.lib-pl-chip{
-  flex-shrink:0;display:flex;align-items:center;gap:8px;padding:8px 12px;
-  border-radius:11px;background:var(--bg2);border:1px solid var(--line);
-  cursor:pointer;transition:all .18s var(--ease);font-size:12.5px;font-weight:600;
-  color:var(--text);
-}
-.lib-pl-chip:hover{border-color:rgba(94,234,212,.4);background:rgba(94,234,212,.06)}
-.lib-pl-chip.active{background:var(--grad);color:#06070d;border-color:transparent}
-.lib-pl-chip svg{width:14px;height:14px}
-.lib-pl-chip-count{font-size:10.5px;opacity:.75}
-
 /* YouTube */
 .yt-wrap{margin-top:16px;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
 .yt-wrap iframe{display:block;width:100%;aspect-ratio:16/9;border:none}
@@ -342,6 +326,34 @@ select.input option{background:var(--card2);color:var(--text)}
   user-select:all;cursor:pointer;
 }
 .rec-code-box:hover{background:rgba(94,234,212,.06)}
+
+/* Bíblia */
+.bible-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.bible-select{flex:1;min-width:120px}
+.bible-speed-select{width:130px;flex:none}
+.bible-text{
+  background:var(--bg2);border:1px solid var(--line);border-radius:14px;
+  padding:24px;line-height:1.8;font-size:15px;max-height:500px;overflow-y:auto;
+  font-family:'Georgia',serif;
+}
+.bible-text .verse{display:block;margin-bottom:6px}
+.bible-text .verse-num{color:var(--cyan);font-weight:700;font-size:11px;margin-right:6px;font-family:'Inter',sans-serif}
+.bible-audio-btn{display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:99px;background:var(--grad-soft);border:1px solid var(--line);color:var(--text);font-size:12.5px;font-weight:600;transition:all .18s var(--ease)}
+.bible-audio-btn:hover{background:rgba(94,234,212,.15);border-color:rgba(94,234,212,.4)}
+.bible-audio-btn.playing{background:var(--cyan);color:#06070d;border-color:transparent}
+.bible-install-box{text-align:center;padding:40px 20px}
+
+/* Botão WhatsApp */
+.share-wa-btn{
+  position:fixed;bottom:100px;right:20px;z-index:200;
+  width:56px;height:56px;border-radius:50%;background:#25D366;
+  color:#fff;display:grid;place-items:center;border:none;
+  box-shadow:0 4px 14px rgba(37,211,102,.4);
+  transition:all .2s var(--ease);
+}
+.share-wa-btn:hover{transform:scale(1.1);box-shadow:0 6px 20px rgba(37,211,102,.6)}
+.share-wa-btn svg{width:28px;height:28px;fill:currentColor}
+@media(max-width:980px){.share-wa-btn{bottom:88px;right:12px;width:50px;height:50px}}
 
 /* Player */
 .player{
@@ -435,34 +447,6 @@ input[type=range]::-moz-range-thumb{width:11px;height:11px;border:none;border-ra
 .toast.error::before{background:#f87171;box-shadow:0 0 10px #f87171}
 .toast.success::before{background:#4ade80;box-shadow:0 0 10px #4ade80}
 
-/* Hero */
-.hero{
-  position:relative;overflow:hidden;border-radius:20px;padding:34px;margin-bottom:18px;
-  border:1px solid var(--line);
-  background:radial-gradient(560px 200px at 92% -10%,rgba(167,139,250,.24),transparent 70%),
-             radial-gradient(480px 200px at -5% 110%,rgba(94,234,212,.18),transparent 70%),
-             var(--card);
-}
-.hero-inner{position:relative;z-index:2;max-width:520px}
-.eyebrow{
-  display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;
-}
-.eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
-.hero h1{font-size:clamp(26px,3.5vw,36px);font-weight:700;line-height:1.1;margin-bottom:10px}
-.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:14px;line-height:1.6;max-width:420px}
-.hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
-.hero-art{
-  position:absolute;right:30px;bottom:0;display:flex;align-items:flex-end;gap:6px;
-  height:130px;opacity:.85;z-index:1;pointer-events:none;
-}
-.hero-art span{
-  width:8px;border-radius:5px;background:var(--grad);
-  animation:bar 1.6s ease-in-out infinite;transform-origin:bottom;
-}
-@keyframes bar{0%,100%{transform:scaleY(.3);opacity:.5}50%{transform:scaleY(1);opacity:1}}
-
 /* Stats */
 .stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:18px}
 .stat{
@@ -549,25 +533,15 @@ html[data-theme="light"] .btn-primary{color:#0f1220}
 html[data-theme="light"] .brand-icon{color:#0f1220}
 html[data-theme="light"] .avatar{color:#0f1220}
 html[data-theme="light"] .side-foot-name{color:var(--text)}
-html[data-theme="light"] .hero{
-  background:
-    radial-gradient(560px 200px at 92% -10%,rgba(167,139,250,.18),transparent 70%),
-    radial-gradient(480px 200px at -5% 110%,rgba(94,234,212,.15),transparent 70%),
-    var(--card);
-}
 html[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15)}
 html[data-theme="light"] ::selection{background:rgba(167,139,250,.3)}
 html[data-theme="light"] .yt-channel-card,
 html[data-theme="light"] .member-card,
-html[data-theme="light"] .pl-card,
 html[data-theme="light"] .stat,
-html[data-theme="light"] .lib-pl-chip,
 html[data-theme="light"] .pick-item,
 html[data-theme="light"] .yt-card{background:var(--card2)}
 html[data-theme="light"] .yt-channel-name,
-html[data-theme="light"] .member-name,
-html[data-theme="light"] .pl-name{color:var(--text)}
-html[data-theme="light"] .lib-pl-chip.active{color:#fff}
+html[data-theme="light"] .member-name{color:var(--text)}
 
 /* ===== Tela de acesso ===== */
 .access-screen{
@@ -607,7 +581,6 @@ html[data-theme="light"] .lib-pl-chip.active{color:#fff}
 .access-member-box .member-avatar{width:44px;height:44px;font-size:17px}
 .access-member-box .member-name{font-size:14px;font-weight:600;color:var(--text)}
 .access-member-box .member-email{font-size:12px;color:var(--muted2);margin-top:2px}
-.access-admin-link{opacity:.8}
 html[data-theme="light"] .access-screen{
   background:
     radial-gradient(1000px 500px at 80% -10%,rgba(167,139,250,.16),transparent 60%),
@@ -635,8 +608,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
   .chip.active{background:var(--grad);color:#06070d;border-color:transparent}
   .topbar{padding:0 16px}
   main{padding:20px 16px calc(var(--player-h) + 34px)}
-  .hero{padding:26px 22px}
-  .hero-art{display:none}
   .player{height:74px;grid-template-columns:1fr auto;gap:10px;padding:0 14px}
   .player-center,.player-right{display:none}
   .np-cover{width:42px;height:42px;border-radius:10px}
@@ -655,8 +626,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
   .toast{max-width:none}
 }
 @media(max-width:560px){
-  .hero{padding:22px 18px}
-  .hero-actions .btn{flex:1}
   .card{padding:16px;border-radius:14px}
   .song-actions .icon-btn[data-act="add"]{display:none}
   .stat{padding:14px 14px}
@@ -692,13 +661,13 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       Favoritas <span class="nav-badge" id="badgeFavs">0</span>
     </button>
-    <button class="nav-btn" data-nav="playlists">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-      Playlists
-    </button>
     <button class="nav-btn" data-nav="youtube">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="4"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor" stroke="none"/></svg>
       YouTube
+    </button>
+    <button class="nav-btn" data-nav="bible">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Bíblia
     </button>
     <button class="nav-btn" data-nav="members">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -736,39 +705,24 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
       <button class="chip active" data-nav="home">Início</button>
       <button class="chip" data-nav="library">Biblioteca</button>
       <button class="chip" data-nav="favorites">Favoritas</button>
-      <button class="chip" data-nav="playlists">Playlists</button>
       <button class="chip" data-nav="youtube">YouTube</button>
+      <button class="chip" data-nav="bible">Bíblia</button>
       <button class="chip" data-nav="members">Membros</button>
     </nav>
 
     <main>
-      <!-- HOME -->
-      <section id="page-home">
-        <div class="hero">
-          <div class="hero-inner">
-            <span class="eyebrow">Bem-vindo</span>
-            <h1>Sua música. <em>Sua vibe.</em></h1>
-            <p>Importe suas faixas, monte playlists e ouça tudo em um só lugar. Tudo fica salvo no seu navegador — sem upload para servidores.</p>
-            <div class="hero-actions">
-              <button class="btn btn-primary" data-nav="library">
-                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg>
-                Abrir biblioteca
-              </button>
-              <button class="btn" data-nav="youtube">Tocar do YouTube</button>
-            </div>
-          </div>
-          <div class="hero-art">
-            <span style="height:55px;animation-delay:0s"></span>
-            <span style="height:100px;animation-delay:.18s"></span>
-            <span style="height:75px;animation-delay:.36s"></span>
-            <span style="height:125px;animation-delay:.09s"></span>
-            <span style="height:85px;animation-delay:.27s"></span>
-            <span style="height:60px;animation-delay:.45s"></span>
-            <span style="height:110px;animation-delay:.13s"></span>
-            <span style="height:70px;animation-delay:.32s"></span>
-          </div>
-        </div>
+      <!-- ABAS SUPERIORES -->
+      <div class="top-tabs" id="topTabs">
+        <button class="tab-btn active" data-tab="all">Tudo</button>
+        <button class="tab-btn" data-tab="music">Músicas</button>
+        <button class="tab-btn" data-tab="youtube">YouTube</button>
+        <button class="tab-btn" data-tab="podcast">Podcast</button>
+        <button class="tab-btn" data-tab="desenhos">Desenhos</button>
+        <button class="tab-btn" data-tab="bible">Bíblia Offline</button>
+      </div>
 
+      <!-- HOME (TUDO) -->
+      <section id="page-home">
         <div class="stats">
           <div class="stat">
             <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
@@ -779,13 +733,41 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
             <div><div class="stat-value" id="statFavs">0</div><div class="stat-label">Favoritas</div></div>
           </div>
           <div class="stat">
-            <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
-            <div><div class="stat-value" id="statPlaylists">0</div><div class="stat-label">Playlists</div></div>
+            <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="4"/><polygon points="10 9 15 12 10 15 10 9" fill="currentColor" stroke="none"/></svg></div>
+            <div><div class="stat-value" id="statYt">0</div><div class="stat-label">YouTube</div></div>
           </div>
           <div class="stat">
             <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
             <div><div class="stat-value" id="statMembers">0</div><div class="stat-label">Membros</div></div>
           </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2>Músicas Adicionadas</h2>
+              <p>Últimas faixas da sua biblioteca</p>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <button class="btn btn-primary btn-sm" id="playAllRecentBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg>
+                Tocar Tudo
+              </button>
+              <button class="btn btn-ghost btn-sm" data-nav="library">Ver todas</button>
+            </div>
+          </div>
+          <div id="recentList" class="song-list"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2>YouTube</h2>
+              <p>Vídeos salvos recentemente</p>
+            </div>
+            <button class="btn btn-ghost btn-sm" data-nav="youtube">Ver todos</button>
+          </div>
+          <div id="homeYtGrid" class="yt-grid"></div>
         </div>
 
         <div class="card">
@@ -829,17 +811,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
             </button>
           </div>
         </div>
-
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <h2>Adicionadas recentemente</h2>
-              <p>Últimas faixas da sua biblioteca</p>
-            </div>
-            <button class="btn btn-ghost" data-nav="library">Ver todas</button>
-          </div>
-          <div id="recentList" class="song-list"></div>
-        </div>
       </section>
 
       <!-- LIBRARY -->
@@ -859,17 +830,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
               </select>
             </div>
           </div>
-
-          <div id="libPlaylistsWrap" style="margin-bottom:14px">
-            <div style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px">Suas playlists</div>
-            <div id="libPlaylistsRow" class="lib-pl-row"></div>
-          </div>
-
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap">
-            <div id="libFilterInfo" style="font-size:12.5px;color:var(--muted)"></div>
-            <button class="btn btn-ghost btn-sm hidden" id="clearLibFilterBtn">Limpar filtro</button>
-          </div>
-
           <div id="libraryList" class="song-list"></div>
         </div>
       </section>
@@ -888,54 +848,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
             </button>
           </div>
           <div id="favoritesList" class="song-list"></div>
-        </div>
-      </section>
-
-      <!-- PLAYLISTS -->
-      <section id="page-playlists" class="hidden">
-        <div id="playlistsOverview">
-          <div class="card">
-            <div class="card-head">
-              <div>
-                <h2>Playlists</h2>
-                <p>Organize suas músicas do seu jeito</p>
-              </div>
-            </div>
-            <div class="row">
-              <input class="input" id="newPlaylistInput" placeholder="Nome da nova playlist" maxlength="60">
-              <button class="btn btn-primary" id="createPlaylistBtn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                Criar
-              </button>
-            </div>
-            <div id="playlistsGrid" class="pl-grid"></div>
-          </div>
-        </div>
-
-        <div id="playlistDetail" class="hidden">
-          <div class="card">
-            <div class="card-head">
-              <div>
-                <button class="btn btn-ghost" id="backToPlaylistsBtn" style="margin-bottom:10px">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                  Voltar
-                </button>
-                <h2 id="playlistDetailName">Playlist</h2>
-                <p id="playlistDetailCount">0 músicas</p>
-              </div>
-              <div style="display:flex;gap:8px;flex-wrap:wrap">
-                <button class="btn btn-primary" id="addSongToPlaylistBtn">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                  Adicionar músicas
-                </button>
-                <button class="btn" id="playPlaylistBtn">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20"/></svg>
-                  Tocar
-                </button>
-              </div>
-            </div>
-            <div id="playlistSongs" class="song-list"></div>
-          </div>
         </div>
       </section>
 
@@ -967,7 +879,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
           <div id="youtubePlayer"></div>
         </div>
 
-        <!-- Canal @CazeTV -->
         <div class="card">
           <div class="card-head">
             <div>
@@ -1005,9 +916,61 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
         </div>
       </section>
 
+      <!-- BÍBLIA -->
+      <section id="page-bible" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <h2>Bíblia Sagrada</h2>
+              <p id="bibleVersionLabel">Tradução Brasileira (Ortografia Atualizada)</p>
+            </div>
+          </div>
+          
+          <div id="bibleInstallView" class="bible-install-box hidden">
+            <div class="empty-icon" style="margin-bottom:16px; width:64px; height:64px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 5 17 10"/><line x1="12" y1="5" x2="12" y2="17"/></svg>
+            </div>
+            <h3 style="margin-bottom:8px">Instalar Bíblia Completa</h3>
+            <p style="color:var(--muted); font-size:13px; max-width:400px; margin:0 auto 20px; line-height:1.6;">
+              Baixe os dados da Bíblia Sagrada (Almeida Revista e Corrigida) para leitura e áudio offline. O download pode levar alguns segundos.
+            </p>
+            <button class="btn btn-primary" id="bibleInstallBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 5 17 10"/><line x1="12" y1="5" x2="12" y2="17"/></svg>
+              Instalar Bíblia
+            </button>
+          </div>
+
+          <div id="bibleReadView" class="hidden">
+            <div class="bible-controls">
+              <select class="input bible-select" id="bibleBookSelect"></select>
+              <select class="input bible-select" id="bibleChapterSelect"></select>
+              
+              <!-- Seletor de Velocidade -->
+              <select class="input bible-speed-select" id="bibleSpeedSelect">
+                <option value="0.75">Lenta</option>
+                <option value="1.0" selected>Normal</option>
+                <option value="1.25">Rápida</option>
+                <option value="1.5">Muito Rápida</option>
+              </select>
+
+              <button class="bible-audio-btn" id="bibleAudioBtn">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="6 4 20 12 6 20"/></svg>
+                Ouvir Capítulo
+              </button>
+              <button class="bible-audio-btn" id="bibleShareBtn" title="Compartilhar capítulo no WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Compartilhar
+              </button>
+            </div>
+            <div class="bible-text" id="bibleText">
+              Selecione um livro e capítulo para ler.
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- MEMBERS -->
       <section id="page-members" class="hidden">
-        <!-- Tela de Login Admin -->
         <div id="adminLoginView">
           <div class="card">
             <div class="card-head">
@@ -1037,7 +1000,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
           </div>
         </div>
 
-        <!-- Painel Admin logado -->
         <div id="adminPanelView" class="hidden">
           <div class="card">
             <div class="card-head">
@@ -1067,6 +1029,11 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
     </main>
   </div>
 </div>
+
+<!-- Botão Flutuante do WhatsApp (compartilha o que está tocando / capítulo aberto) -->
+<button class="share-wa-btn" id="shareWaBtn" title="Compartilhar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</button>
 
 <!-- PLAYER -->
 <div class="player" id="player">
@@ -1129,7 +1096,7 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
   </div>
 </div>
 
-<!-- TELA DE ACESSO (LOGIN DE MEMBRO) -->
+<!-- TELA DE ACESSO -->
 <div class="access-screen hidden" id="accessScreen">
   <div class="access-card">
     <div class="access-logo">
@@ -1152,11 +1119,6 @@ html[data-theme="light"] .access-card{box-shadow:0 40px 80px -30px rgba(0,0,0,.2
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
         Entrar
       </button>
-      <div class="access-admin-link">
-        <button class="btn btn-ghost btn-sm" id="accessAdminBtn" style="width:100%;margin-top:10px">
-          Sou administrador
-        </button>
-      </div>
     </div>
 
     <div id="accessMemberInfo" class="hidden">
@@ -1280,11 +1242,12 @@ async function idbDel(store, key) {
 const LS_KEYS = {
   songs: 'daplay.songs.v5',
   favorites: 'daplay.favorites.v5',
-  playlists: 'daplay.playlists.v5',
   profile: 'daplay.profile.v5',
   ytVideos: 'daplay.ytvideos.v5',
   members: 'daplay.members.v5',
-  session: 'daplay.session.v1'
+  session: 'daplay.session.v1',
+  bibleData: 'daplay.bible.data.v1',
+  bibleVersion: 'daplay.bible.version.v1'
 };
 
 const loadJSON = (key, fallback) => {
@@ -1305,23 +1268,24 @@ const saveJSON = (key, val) => {
 const state = {
   songs: loadJSON(LS_KEYS.songs, []),
   favorites: loadJSON(LS_KEYS.favorites, []),
-  playlists: loadJSON(LS_KEYS.playlists, []),
   ytVideos: loadJSON(LS_KEYS.ytVideos, []),
   members: loadJSON(LS_KEYS.members, []),
   currentId: null,
   currentType: 'local',
+  currentYtVideoId: null,
   queue: [],
   queueIdx: 0,
   shuffle: false,
   repeat: 'off',
-  openPlaylistId: null,
-  libPlaylistFilter: null,
   currentObjectURL: null,
-  loggedMember: null
+  loggedMember: null,
+  currentTab: 'all',
+  bibleData: loadJSON(LS_KEYS.bibleData, null),
+  bibleLastBook: null,
+  bibleLastChapter: null
 };
-['songs','favorites','playlists','ytVideos','members'].forEach(k => { if (!Array.isArray(state[k])) state[k] = []; });
+['songs','favorites','ytVideos','members'].forEach(k => { if (!Array.isArray(state[k])) state[k] = []; });
 
-// Migração leve: garante que todo membro existente tenha campo password
 state.members.forEach(m => {
   if (typeof m.password !== 'string') m.password = m.password || '';
 });
@@ -1335,8 +1299,8 @@ audio.preload = 'metadata';
 audio.volume = 0.8;
 
 const getSong = (id) => state.songs.find(s => s.id === id) || null;
-const getPlaylist = (id) => state.playlists.find(p => p.id === id) || null;
 const getYtVideo = (id) => state.ytVideos.find(v => v.id === id) || null;
+const getYtByVideoId = (videoId) => state.ytVideos.find(v => v.videoId === videoId) || null;
 
 /* ============================================================
    TOAST
@@ -1355,14 +1319,14 @@ function toast(msg, type) {
 }
 
 /* ============================================================
-   NAVEGAÇÃO
+   NAVEGAÇÃO E ABAS
    ============================================================ */
 const PAGE_META = {
   home: { title: 'Início', sub: 'Sua música. Sua vibe.' },
-  library: { title: 'Biblioteca', sub: 'Todas as suas músicas e playlists' },
+  library: { title: 'Biblioteca', sub: 'Todas as suas músicas' },
   favorites: { title: 'Favoritas', sub: 'As músicas que você ama' },
-  playlists: { title: 'Playlists', sub: 'Suas coleções' },
   youtube: { title: 'YouTube', sub: 'Vídeos salvos' },
+  bible: { title: 'Bíblia Offline', sub: 'Tradução Brasileira' },
   members: { title: 'Membros', sub: 'Gerencie os membros do Daplay' }
 };
 
@@ -1377,15 +1341,31 @@ function showPage(name) {
   const meta = PAGE_META[name];
   $('pageTitle').textContent = meta.title;
   $('pageSub').textContent = meta.sub;
-  if (name === 'playlists') {
-    state.openPlaylistId = null;
-    $('playlistDetail').classList.add('hidden');
-    $('playlistsOverview').classList.remove('hidden');
-  }
-  if (name === 'members') {
-    renderMembers();
-  }
+
+  if (name === 'home') setActiveTab('all');
+  else if (name === 'library') setActiveTab('music');
+  else if (name === 'youtube') setActiveTab('youtube');
+  else if (name === 'bible') setActiveTab('bible');
+
+  if (name === 'members') renderMembers();
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setActiveTab(tabName) {
+  state.currentTab = tabName;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tabName);
+  });
+}
+
+function handleTabClick(tab) {
+  setActiveTab(tab);
+  if (tab === 'all') showPage('home');
+  else if (tab === 'music') showPage('library');
+  else if (tab === 'youtube') { ytFilter = 'all'; showPage('youtube'); renderYtVideos(); }
+  else if (tab === 'podcast') { ytFilter = 'Podcast'; showPage('youtube'); renderYtVideos(); }
+  else if (tab === 'desenhos') { ytFilter = 'Desenhos'; showPage('youtube'); renderYtVideos(); }
+  else if (tab === 'bible') showPage('bible');
 }
 
 /* ============================================================
@@ -1415,37 +1395,22 @@ async function importFiles(fileList) {
     (f.type && f.type.startsWith('audio/')) ||
     /\.(mp3|wav|ogg|m4a|flac|aac|opus|weba)$/i.test(f.name)
   );
-  if (!files.length) {
-    toast('Nenhum arquivo de áudio válido.', 'error');
-    return;
-  }
+  if (!files.length) { toast('Nenhum arquivo de áudio válido.', 'error'); return; }
   toast('Importando ' + files.length + ' arquivo(s)...');
   let added = 0;
   for (const file of files) {
     try {
       const id = uid('song');
       const duration = await getAudioDuration(file);
-      const song = {
-        id: id,
-        name: file.name.replace(/\.[^.]+$/, ''),
-        size: file.size,
-        duration: duration,
-        addedAt: Date.now()
-      };
+      const song = { id, name: file.name.replace(/\.[^.]+$/, ''), size: file.size, duration, addedAt: Date.now() };
       try { await idbPut('blobs', id, file); } catch (e) { console.warn('IDB save falhou', e); }
       state.songs.push(song);
       added++;
-    } catch (e) {
-      console.error('Erro ao importar arquivo', file.name, e);
-    }
+    } catch (e) { console.error('Erro ao importar arquivo', file.name, e); }
   }
   saveJSON(LS_KEYS.songs, state.songs);
-  renderAll();
-  updateStats();
-  if (added > 0) {
-    toast(added + ' música(s) adicionada(s).', 'success');
-    showPage('library');
-  }
+  renderAll(); updateStats();
+  if (added > 0) { toast(added + ' música(s) adicionada(s).', 'success'); showPage('library'); }
 }
 
 /* ============================================================
@@ -1454,100 +1419,49 @@ async function importFiles(fileList) {
 async function playSong(id, queue) {
   const song = getSong(id);
   if (!song) return;
-
   if (Array.isArray(queue) && queue.length) {
     state.queue = queue.slice();
     state.queueIdx = Math.max(0, state.queue.indexOf(id));
   } else if (state.queue.indexOf(id) === -1) {
-    state.queue = [id];
-    state.queueIdx = 0;
-  } else {
-    state.queueIdx = state.queue.indexOf(id);
-  }
+    state.queue = [id]; state.queueIdx = 0;
+  } else { state.queueIdx = state.queue.indexOf(id); }
 
   let blob = null;
   try { blob = await idbGet('blobs', id); } catch (e) { console.warn(e); }
-  if (!blob) {
-    toast('Arquivo não encontrado. Reimporte esta música.', 'error');
-    return;
-  }
+  if (!blob) { toast('Arquivo não encontrado. Reimporte esta música.', 'error'); return; }
 
   if (state.currentObjectURL) URL.revokeObjectURL(state.currentObjectURL);
   state.currentObjectURL = URL.createObjectURL(blob);
-  state.currentId = id;
-  state.currentType = 'local';
+  state.currentId = id; state.currentType = 'local'; state.currentYtVideoId = null;
   audio.src = state.currentObjectURL;
-
   try { await audio.play(); } catch (e) { console.warn('Autoplay bloqueado', e); }
-
   setupMediaSession(song.name, 'Daplay');
-  renderPlayer();
-  renderAll();
+  renderPlayer(); renderAll();
 }
 
 function setupMediaSession(title, artist) {
   if (!('mediaSession' in navigator)) return;
   try {
-    navigator.mediaSession.metadata = new MediaMetadata({
-      title: title,
-      artist: artist || 'Daplay',
-      album: 'Daplay',
-      artwork: [
-        { src: makeCoverDataURL(title), sizes: '512x512', type: 'image/png' }
-      ]
-    });
+    navigator.mediaSession.metadata = new MediaMetadata({ title, artist: artist || 'Daplay', album: 'Daplay', artwork: [{ src: makeCoverDataURL(title), sizes: '512x512', type: 'image/png' }] });
     navigator.mediaSession.setActionHandler('play', () => { audio.play().catch(()=>{}); });
     navigator.mediaSession.setActionHandler('pause', () => { audio.pause(); });
     navigator.mediaSession.setActionHandler('previoustrack', () => prevTrack());
     navigator.mediaSession.setActionHandler('nexttrack', () => nextTrack(false));
-    navigator.mediaSession.setActionHandler('seekbackward', (d) => {
-      audio.currentTime = Math.max(0, audio.currentTime - (d.seekOffset || 10));
-    });
-    navigator.mediaSession.setActionHandler('seekforward', (d) => {
-      audio.currentTime = Math.min(audio.duration || 0, audio.currentTime + (d.seekOffset || 10));
-    });
-    navigator.mediaSession.setActionHandler('seekto', (d) => {
-      if (d.seekTime != null) audio.currentTime = d.seekTime;
-    });
   } catch (e) { console.warn('MediaSession', e); }
 }
 
 function makeCoverDataURL(name) {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360;
-  const c1 = 'hsl(' + h + ',70%,55%)';
-  const c2 = 'hsl(' + ((h + 55) % 360) + ',70%,42%)';
+  let h = 0; for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 360;
+  const c1 = 'hsl(' + h + ',70%,55%)'; const c2 = 'hsl(' + ((h + 55) % 360) + ',70%,42%)';
   const initial = (name.trim().charAt(0) || '♪').toUpperCase();
-  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512">' +
-    '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">' +
-    '<stop offset="0" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c2 + '"/>' +
-    '</linearGradient></defs>' +
-    '<rect width="512" height="512" rx="64" fill="url(#g)"/>' +
-    '<text x="256" y="320" font-family="Arial,sans-serif" font-size="220" font-weight="700" fill="rgba(0,0,0,.55)" text-anchor="middle">' + initial + '</text></svg>';
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + c1 + '"/><stop offset="1" stop-color="' + c2 + '"/></linearGradient></defs><rect width="512" height="512" rx="64" fill="url(#g)"/><text x="256" y="320" font-family="Arial,sans-serif" font-size="220" font-weight="700" fill="rgba(0,0,0,.55)" text-anchor="middle">' + initial + '</text></svg>';
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
-}
-
-function updateMediaSessionState() {
-  if (!('mediaSession' in navigator)) return;
-  try {
-    navigator.mediaSession.playbackState = audio.paused ? 'paused' : 'playing';
-    if (audio.duration && isFinite(audio.duration)) {
-      navigator.mediaSession.setPositionState({
-        duration: audio.duration,
-        playbackRate: audio.playbackRate,
-        position: Math.min(audio.currentTime, audio.duration)
-      });
-    }
-  } catch {}
 }
 
 function togglePlayPause() {
   if (!state.currentId) {
-    if (state.songs.length) {
-      playSong(state.songs[0].id, state.songs.map(s => s.id));
-    } else {
-      toast('Importe uma música primeiro.', 'error');
-    }
+    if (state.songs.length) playSong(state.songs[0].id, state.songs.map(s => s.id));
+    else toast('Importe uma música primeiro.', 'error');
     return;
   }
   if (audio.paused) audio.play().catch(() => {});
@@ -1556,84 +1470,55 @@ function togglePlayPause() {
 
 function nextTrack(auto) {
   if (!state.queue.length) return;
-  if (auto && state.repeat === 'one') {
-    audio.currentTime = 0;
-    audio.play().catch(() => {});
-    return;
-  }
+  if (auto && state.repeat === 'one') { audio.currentTime = 0; audio.play().catch(() => {}); return; }
   let pos;
-  if (state.shuffle && state.queue.length > 1) {
-    do { pos = Math.floor(Math.random() * state.queue.length); }
-    while (pos === state.queueIdx);
-  } else {
-    pos = state.queueIdx + 1;
-    if (pos >= state.queue.length) {
-      if (state.repeat === 'all') pos = 0;
-      else { audio.pause(); return; }
-    }
-  }
-  state.queueIdx = pos;
-  playSong(state.queue[pos]);
+  if (state.shuffle && state.queue.length > 1) { do { pos = Math.floor(Math.random() * state.queue.length); } while (pos === state.queueIdx); }
+  else { pos = state.queueIdx + 1; if (pos >= state.queue.length) { if (state.repeat === 'all') pos = 0; else { audio.pause(); return; } } }
+  state.queueIdx = pos; playSong(state.queue[pos]);
 }
 
 function prevTrack() {
   if (!state.queue.length) return;
-  if (audio.currentTime > 3) {
-    audio.currentTime = 0;
-    return;
-  }
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
   const pos = state.queueIdx - 1 < 0 ? state.queue.length - 1 : state.queueIdx - 1;
-  state.queueIdx = pos;
-  playSong(state.queue[pos]);
+  state.queueIdx = pos; playSong(state.queue[pos]);
 }
 
-audio.addEventListener('timeupdate', () => { updateProgress(); updateMediaSessionState(); });
+audio.addEventListener('timeupdate', () => { updateProgress(); });
 audio.addEventListener('loadedmetadata', updateProgress);
-audio.addEventListener('play', () => { renderPlayer(); renderAll(); updateMediaSessionState(); });
-audio.addEventListener('pause', () => { renderPlayer(); renderAll(); updateMediaSessionState(); });
+audio.addEventListener('play', () => { renderPlayer(); renderAll(); });
+audio.addEventListener('pause', () => { renderPlayer(); renderAll(); });
 audio.addEventListener('ended', () => nextTrack(true));
-audio.addEventListener('error', () => {
-  if (state.currentId) toast('Erro ao reproduzir esta faixa.', 'error');
-});
+audio.addEventListener('error', () => { if (state.currentId) toast('Erro ao reproduzir esta faixa.', 'error'); });
 
 function updateProgress() {
   const dur = isFinite(audio.duration) ? audio.duration : 0;
   const cur = audio.currentTime || 0;
   const pct = dur > 0 ? (cur / dur) * 100 : 0;
-  const bar = $('progressBar');
-  bar.value = pct;
-  bar.style.setProperty('--p', pct + '%');
-  $('timeCurrent').textContent = fmtTime(cur);
-  $('timeTotal').textContent = fmtTime(dur);
+  const bar = $('progressBar'); bar.value = pct; bar.style.setProperty('--p', pct + '%');
+  $('timeCurrent').textContent = fmtTime(cur); $('timeTotal').textContent = fmtTime(dur);
 }
 
 function updateVolumeUI() {
-  const vol = $('volumeBar');
-  const v = audio.muted ? 0 : Math.round(audio.volume * 100);
-  vol.value = v;
-  vol.style.setProperty('--p', v + '%');
+  const vol = $('volumeBar'); const v = audio.muted ? 0 : Math.round(audio.volume * 100);
+  vol.value = v; vol.style.setProperty('--p', v + '%');
   $('muteBtn').innerHTML = (audio.muted || audio.volume === 0) ? ICONS.volOff : ICONS.volOn;
 }
 
 function renderPlayer() {
   const song = getSong(state.currentId);
   const playing = !!song && !audio.paused;
-
   const cover = $('npCover');
   if (song) {
     cover.style.background = coverGradient(song.name);
     cover.innerHTML = playing ? eqHTML() : ICONS.note;
-    $('npTitle').textContent = song.name;
-    $('npSub').textContent = 'Faixa local';
+    $('npTitle').textContent = song.name; $('npSub').textContent = 'Faixa local';
   } else {
-    cover.style.background = 'var(--card2)';
-    cover.innerHTML = ICONS.note;
-    $('npTitle').textContent = 'Nada tocando';
-    $('npSub').textContent = 'Selecione uma música';
+    cover.style.background = 'var(--card2)'; cover.innerHTML = ICONS.note;
+    $('npTitle').textContent = 'Nada tocando'; $('npSub').textContent = 'Selecione uma música';
   }
   const icon = playing ? ICONS.pause : ICONS.play;
-  $('playBtn').innerHTML = icon;
-  $('mobilePlayBtn').innerHTML = icon;
+  $('playBtn').innerHTML = icon; $('mobilePlayBtn').innerHTML = icon;
   $('shuffleBtn').classList.toggle('active', state.shuffle);
   $('repeatBtn').classList.toggle('active', state.repeat !== 'off');
   $('mobileShuffleBtn').classList.toggle('active', state.shuffle);
@@ -1648,30 +1533,21 @@ function buildSongRow(song, opts) {
   const isFav = state.favorites.indexOf(song.id) !== -1;
   const isCurrent = state.currentId === song.id;
   const isPlaying = isCurrent && !audio.paused;
-
   const row = document.createElement('div');
   row.className = 'song-row' + (isCurrent ? ' playing' : '');
   row.dataset.id = song.id;
-  if (opts.playlistId) row.dataset.playlistId = opts.playlistId;
-
   row.innerHTML =
     '<button class="song-cover" data-act="play" style="background:' + coverGradient(song.name) + ';border:none;cursor:pointer">' +
-      (isPlaying ? eqHTML() : ICONS.note) +
-      '<span class="hover-play">' + ICONS.play + '</span>' +
+      (isPlaying ? eqHTML() : ICONS.note) + '<span class="hover-play">' + ICONS.play + '</span>' +
     '</button>' +
-    '<div class="song-info">' +
-      '<div class="song-name">' + esc(song.name) + '</div>' +
-      '<div class="song-meta">' + fmtTime(song.duration) + (song.size ? ' · ' + fmtSize(song.size) : '') + '</div>' +
-    '</div>' +
+    '<div class="song-info"><div class="song-name">' + esc(song.name) + '</div><div class="song-meta">' + fmtTime(song.duration) + (song.size ? ' · ' + fmtSize(song.size) : '') + '</div></div>' +
     '<div class="song-actions">' +
-      '<button class="icon-btn' + (isFav ? ' fav-on' : '') + '" data-act="fav" title="Favoritar">' +
-        (isFav ? ICONS.heartFill : ICONS.heart) +
+      '<button class="icon-btn' + (isFav ? ' fav-on' : '') + '" data-act="fav" title="Favoritar">' + (isFav ? ICONS.heartFill : ICONS.heart) + '</button>' +
+      '<button class="icon-btn" data-act="share" title="Compartilhar música no WhatsApp">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>' +
       '</button>' +
-      '<button class="icon-btn" data-act="add" title="Adicionar à playlist">' + ICONS.plus + '</button>' +
       (opts.showDelete ? '<button class="icon-btn danger" data-act="delete" title="Excluir">' + ICONS.trash + '</button>' : '') +
-      (opts.playlistId ? '<button class="icon-btn danger" data-act="remove" title="Remover da playlist">' + ICONS.trash + '</button>' : '') +
     '</div>';
-
   return row;
 }
 
@@ -1679,209 +1555,80 @@ function buildSongRow(song, opts) {
    RENDER ALL
    ============================================================ */
 function renderAll() {
-  renderLibrary();
-  renderFavorites();
-  renderRecent();
-  renderPlaylists();
-  renderPlaylistDetail();
-  renderYtVideos();
-  renderMembers();
+  renderLibrary(); renderFavorites(); renderRecent(); renderYtVideos(); renderHomeYt(); renderMembers();
 }
 
 function renderLibrary() {
-  const list = $('libraryList');
-  if (!list) return;
-
-  renderLibPlaylists();
-
+  const list = $('libraryList'); if (!list) return;
   const search = ($('searchInput').value || '').toLowerCase().trim();
   const sort = $('sortSelect').value || 'recent';
-
   let songs = state.songs.slice();
-
-  if (state.libPlaylistFilter) {
-    const pl = getPlaylist(state.libPlaylistFilter);
-    if (pl) songs = songs.filter(s => pl.songIds.indexOf(s.id) !== -1);
-    else state.libPlaylistFilter = null;
-  }
-
   if (search) songs = songs.filter(s => s.name.toLowerCase().indexOf(search) !== -1);
   if (sort === 'name') songs.sort((a, b) => a.name.localeCompare(b.name));
   else if (sort === 'duration') songs.sort((a, b) => (b.duration || 0) - (a.duration || 0));
   else songs.sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
-
   const count = state.songs.length;
   $('libraryCount').textContent = count + ' música' + (count !== 1 ? 's' : '') + ' na biblioteca';
-
-  const pl = state.libPlaylistFilter ? getPlaylist(state.libPlaylistFilter) : null;
-  $('libFilterInfo').textContent = pl ? 'Mostrando playlist: ' + pl.name : '';
-  $('clearLibFilterBtn').classList.toggle('hidden', !pl);
-
   list.innerHTML = '';
-  if (!songs.length) {
-    list.innerHTML = emptyHTML(ICONS.list, pl ? 'Playlist vazia' : 'Nenhuma música ainda', pl ? 'Adicione músicas a esta playlist.' : 'Importe arquivos na página inicial.');
-    return;
-  }
+  if (!songs.length) { list.innerHTML = emptyHTML(ICONS.list, 'Nenhuma música ainda', 'Importe arquivos na página inicial.'); return; }
   const queue = songs.map(s => s.id);
-  songs.forEach(song => list.appendChild(buildSongRow(song, { queue: queue, showDelete: true })));
-}
-
-function renderLibPlaylists() {
-  const row = $('libPlaylistsRow');
-  if (!row) return;
-  row.innerHTML = '';
-  if (!state.playlists.length) {
-    row.innerHTML = '<div style="font-size:12px;color:var(--muted2);padding:6px 2px">Nenhuma playlist criada ainda. Vá em "Playlists" para criar.</div>';
-    return;
-  }
-  state.playlists.forEach(pl => {
-    const chip = document.createElement('button');
-    chip.className = 'lib-pl-chip' + (state.libPlaylistFilter === pl.id ? ' active' : '');
-    chip.innerHTML = ICONS.list + '<span>' + esc(pl.name) + '</span><span class="lib-pl-chip-count">' + pl.songIds.length + '</span>';
-    chip.addEventListener('click', () => {
-      state.libPlaylistFilter = state.libPlaylistFilter === pl.id ? null : pl.id;
-      renderLibrary();
-    });
-    row.appendChild(chip);
-  });
+  songs.forEach(song => list.appendChild(buildSongRow(song, { queue, showDelete: true })));
 }
 
 function renderFavorites() {
-  const list = $('favoritesList');
-  if (!list) return;
+  const list = $('favoritesList'); if (!list) return;
   const favs = state.favorites.map(id => getSong(id)).filter(Boolean);
   $('favoritesCount').textContent = favs.length + ' música' + (favs.length !== 1 ? 's' : '');
-
   list.innerHTML = '';
-  if (!favs.length) {
-    list.innerHTML = emptyHTML(ICONS.heart, 'Nenhuma favorita', 'Toque no coração de uma música para favoritar.');
-    return;
-  }
+  if (!favs.length) { list.innerHTML = emptyHTML(ICONS.heart, 'Nenhuma favorita', 'Toque no coração de uma música para favoritar.'); return; }
   const queue = favs.map(s => s.id);
-  favs.forEach(song => list.appendChild(buildSongRow(song, { queue: queue })));
+  favs.forEach(song => list.appendChild(buildSongRow(song, { queue })));
 }
 
 function renderRecent() {
-  const list = $('recentList');
-  if (!list) return;
-  const recent = state.songs.slice()
-    .sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0))
-    .slice(0, 5);
-
+  const list = $('recentList'); if (!list) return;
+  const recent = state.songs.slice().sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0)).slice(0, 5);
   list.innerHTML = '';
-  if (!recent.length) {
-    list.innerHTML = emptyHTML(ICONS.note, 'Nada por aqui ainda', 'Importe suas primeiras músicas acima.');
-    return;
-  }
+  if (!recent.length) { list.innerHTML = emptyHTML(ICONS.note, 'Nada por aqui ainda', 'Importe suas primeiras músicas acima.'); return; }
   const queue = state.songs.map(s => s.id);
-  recent.forEach(song => list.appendChild(buildSongRow(song, { queue: queue })));
+  recent.forEach(song => list.appendChild(buildSongRow(song, { queue })));
 }
 
-function renderPlaylists() {
-  const grid = $('playlistsGrid');
-  if (!grid) return;
+/* ============================================================
+   YOUTUBE
+   ============================================================ */
+function renderYtVideos() {
+  const grid = $('ytSavedGrid'); if (!grid) return;
+  const total = state.ytVideos.length;
+  $('ytSavedCount').textContent = total + ' vídeo' + (total !== 1 ? 's' : '') + ' salvo' + (total !== 1 ? 's' : '');
+  document.querySelectorAll('.yt-filter-chip').forEach(c => { c.classList.toggle('active', c.dataset.cat === ytFilter); });
+  const list = ytFilter === 'all' ? state.ytVideos : state.ytVideos.filter(v => (v.category || 'Músicas') === ytFilter);
   grid.innerHTML = '';
-  if (!state.playlists.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--muted2);font-size:13px">Nenhuma playlist criada ainda.</div>';
-    return;
-  }
-  state.playlists.forEach(pl => {
-    const card = document.createElement('div');
-    card.className = 'pl-card';
-    card.innerHTML =
-      '<div class="pl-art">' + ICONS.list + '</div>' +
-      '<div class="pl-info">' +
-        '<div class="pl-name">' + esc(pl.name) + '</div>' +
-        '<div class="pl-count">' + pl.songIds.length + ' música' + (pl.songIds.length !== 1 ? 's' : '') + '</div>' +
-      '</div>' +
-      '<button class="icon-btn danger" data-del="' + pl.id + '" title="Excluir playlist">' + ICONS.trash + '</button>';
+  if (!total) { grid.innerHTML = '<div class="yt-empty-cat">Nenhum vídeo salvo ainda.</div>'; return; }
+  if (!list.length) { grid.innerHTML = '<div class="yt-empty-cat">Nenhum vídeo salvo em "' + esc(ytFilter) + '".</div>'; return; }
+  list.forEach(v => {
+    const cat = v.category || 'Músicas';
+    const card = document.createElement('div'); card.className = 'yt-card';
+    card.innerHTML = '<div class="yt-thumb"><span class="yt-cat-badge" data-cat="' + esc(cat) + '">' + esc(cat) + '</span><img src="https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg" alt="" loading="lazy" onerror="this.style.display=\'none\'"><div class="yt-play-overlay">' + ICONS.play + '</div><button class="yt-card-del" data-del="' + v.id + '" title="Excluir vídeo">' + ICONS.trash + '</button><button class="yt-card-share" data-share="' + v.videoId + '" title="Compartilhar no WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button></div><div class="yt-card-body"><div class="yt-card-title">' + esc(v.title) + '</div><div class="yt-card-meta">' + esc(v.author || 'YouTube') + '</div></div>';
     card.addEventListener('click', (e) => {
-      if (e.target.closest('[data-del]')) {
-        e.stopPropagation();
-        deletePlaylist(pl.id);
-        return;
-      }
-      openPlaylist(pl.id);
+      if (e.target.closest('[data-del]')) { e.stopPropagation(); deleteYtVideo(v.id); return; }
+      if (e.target.closest('[data-share]')) { e.stopPropagation(); shareYoutubeVideo(v.videoId); return; }
+      playYtSaved(v.videoId);
     });
     grid.appendChild(card);
   });
 }
 
-function renderPlaylistDetail() {
-  if (!state.openPlaylistId) return;
-  const pl = getPlaylist(state.openPlaylistId);
-  if (!pl) { closePlaylist(); return; }
-
-  $('playlistDetailName').textContent = pl.name;
-  const songs = pl.songIds.map(id => getSong(id)).filter(Boolean);
-  $('playlistDetailCount').textContent = songs.length + ' música' + (songs.length !== 1 ? 's' : '');
-
-  const list = $('playlistSongs');
-  list.innerHTML = '';
-  if (!songs.length) {
-    list.innerHTML = emptyHTML(ICONS.note, 'Playlist vazia', 'Clique em "Adicionar músicas" para incluir faixas.');
-    return;
-  }
-  const queue = songs.map(s => s.id);
-  songs.forEach(song => {
-    list.appendChild(buildSongRow(song, {
-      queue: queue,
-      playlistId: pl.id
-    }));
-  });
-}
-
-/* ============================================================
-   YOUTUBE SALVOS (com categorias)
-   ============================================================ */
-function renderYtVideos() {
-  const grid = $('ytSavedGrid');
-  if (!grid) return;
-
-  const total = state.ytVideos.length;
-  $('ytSavedCount').textContent = total + ' vídeo' + (total !== 1 ? 's' : '') + ' salvo' + (total !== 1 ? 's' : '');
-
-  document.querySelectorAll('.yt-filter-chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.cat === ytFilter);
-  });
-
-  const list = ytFilter === 'all'
-    ? state.ytVideos
-    : state.ytVideos.filter(v => (v.category || 'Músicas') === ytFilter);
-
+function renderHomeYt() {
+  const grid = $('homeYtGrid'); if (!grid) return;
+  const list = state.ytVideos.slice(0, 4);
   grid.innerHTML = '';
-  if (!total) {
-    grid.innerHTML = '<div class="yt-empty-cat">Nenhum vídeo salvo ainda. Escolha uma categoria e clique em "Salvar vídeo".</div>';
-    return;
-  }
-  if (!list.length) {
-    grid.innerHTML = '<div class="yt-empty-cat">Nenhum vídeo salvo em "' + esc(ytFilter) + '".</div>';
-    return;
-  }
-
+  if (!list.length) { grid.innerHTML = '<div class="yt-empty-cat">Nenhum vídeo salvo ainda.</div>'; return; }
   list.forEach(v => {
     const cat = v.category || 'Músicas';
-    const card = document.createElement('div');
-    card.className = 'yt-card';
-    card.innerHTML =
-      '<div class="yt-thumb">' +
-        '<span class="yt-cat-badge" data-cat="' + esc(cat) + '">' + esc(cat) + '</span>' +
-        '<img src="https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg" alt="" loading="lazy" onerror="this.style.display=\'none\'">' +
-        '<div class="yt-play-overlay">' + ICONS.play + '</div>' +
-        '<button class="yt-card-del" data-del="' + v.id + '" title="Excluir vídeo">' + ICONS.trash + '</button>' +
-      '</div>' +
-      '<div class="yt-card-body">' +
-        '<div class="yt-card-title">' + esc(v.title) + '</div>' +
-        '<div class="yt-card-meta">' + esc(v.author || 'YouTube') + '</div>' +
-      '</div>';
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('[data-del]')) {
-        e.stopPropagation();
-        deleteYtVideo(v.id);
-        return;
-      }
-      playYtSaved(v.videoId);
-    });
+    const card = document.createElement('div'); card.className = 'yt-card';
+    card.innerHTML = '<div class="yt-thumb"><span class="yt-cat-badge" data-cat="' + esc(cat) + '">' + esc(cat) + '</span><img src="https://i.ytimg.com/vi/' + v.videoId + '/mqdefault.jpg" alt="" loading="lazy" onerror="this.style.display=\'none\'"><div class="yt-play-overlay">' + ICONS.play + '</div></div><div class="yt-card-body"><div class="yt-card-title">' + esc(v.title) + '</div><div class="yt-card-meta">' + esc(v.author || 'YouTube') + '</div></div>';
+    card.addEventListener('click', () => playYtSaved(v.videoId));
     grid.appendChild(card);
   });
 }
@@ -1890,17 +1637,14 @@ function deleteYtVideo(id) {
   if (!confirm('Excluir este vídeo salvo?')) return;
   state.ytVideos = state.ytVideos.filter(v => v.id !== id);
   saveJSON(LS_KEYS.ytVideos, state.ytVideos);
-  renderYtVideos();
+  renderYtVideos(); renderHomeYt(); updateStats();
   toast('Vídeo removido.', 'success');
 }
 
 function playYtSaved(videoId) {
   const container = $('youtubePlayer');
-  container.innerHTML =
-    '<div class="yt-wrap"><iframe src="https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
-  state.currentType = 'youtube';
-  state.currentId = null;
-  renderPlayer();
+  container.innerHTML = '<div class="yt-wrap"><iframe src="https://www.youtube-nocookie.com/embed/' + videoId + '?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
+  state.currentType = 'youtube'; state.currentId = null; state.currentYtVideoId = videoId; renderPlayer();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -1908,38 +1652,18 @@ async function saveYtVideo() {
   const url = $('youtubeInput').value.trim();
   if (!url) { toast('Cole um link do YouTube.', 'error'); return; }
   const id = parseYouTubeId(url);
-  if (!id || !/^[a-zA-Z0-9_-]{11}$/.test(id)) {
-    toast('Não foi possível identificar o vídeo.', 'error');
-    return;
-  }
-  if (state.ytVideos.some(v => v.videoId === id)) {
-    toast('Este vídeo já foi salvo.', 'error');
-    return;
-  }
+  if (!id || !/^[a-zA-Z0-9_-]{11}$/.test(id)) { toast('Não foi possível identificar o vídeo.', 'error'); return; }
+  if (state.ytVideos.some(v => v.videoId === id)) { toast('Este vídeo já foi salvo.', 'error'); return; }
   const category = $('youtubeCategory').value || 'Músicas';
-
-  let title = 'Vídeo do YouTube';
-  let author = 'YouTube';
+  let title = 'Vídeo do YouTube'; let author = 'YouTube';
   try {
     const r = await fetch('https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=' + id + '&format=json');
-    if (r.ok) {
-      const d = await r.json();
-      title = d.title || title;
-      author = d.author_name || author;
-    }
+    if (r.ok) { const d = await r.json(); title = d.title || title; author = d.author_name || author; }
   } catch (e) { /* offline/blocked */ }
-
-  const video = {
-    id: uid('yt'),
-    videoId: id,
-    title: title,
-    author: author,
-    category: category,
-    savedAt: Date.now()
-  };
+  const video = { id: uid('yt'), videoId: id, title, author, category, savedAt: Date.now() };
   state.ytVideos.unshift(video);
   saveJSON(LS_KEYS.ytVideos, state.ytVideos);
-  renderYtVideos();
+  renderYtVideos(); renderHomeYt(); updateStats();
   $('youtubeInput').value = '';
   toast('Vídeo salvo em "' + category + '".', 'success');
 }
@@ -1950,611 +1674,485 @@ function parseYouTubeId(url) {
 }
 
 /* ============================================================
-   ADMIN — Autenticação e Membros
+   COMPARTILHAMENTO INTELIGENTE NO WHATSAPP
    ============================================================ */
-const ADMIN_EMAIL = 'rjuniosilva10@gmail.com';
-const ADMIN_PASSWORD = 'Rjs100681*';
-const ADMIN_LS = 'daplay.admin.session.v1';
-const ADMIN_RECOVERY_LS = 'daplay.admin.recovery.v1';
-
-function isAdminLogged() {
-  try { return JSON.parse(localStorage.getItem(ADMIN_LS) || 'null')?.logged === true; }
-  catch { return false; }
-}
-function setAdminLogged(v) {
-  try { localStorage.setItem(ADMIN_LS, JSON.stringify({ logged: v, at: Date.now() })); } catch {}
+function buildWhatsAppLink(text) {
+  return 'https://wa.me/?text=' + encodeURIComponent(text);
 }
 
-function renderMembers() {
-  const loginView = $('adminLoginView');
-  const panelView = $('adminPanelView');
-  if (!loginView || !panelView) return;
+function shareSong(songId) {
+  const song = getSong(songId);
+  if (!song) { toast('Música não encontrada.', 'error'); return; }
+  const text =
+    '🎵 *' + song.name + '*\n' +
+    '⏱ ' + fmtTime(song.duration) + '\n' +
+    (song.size ? '📦 ' + fmtSize(song.size) + '\n' : '') +
+    '📻 Compartilhado do *Daplay* — Sua música. Sua vibe.';
+  window.open(buildWhatsAppLink(text), '_blank', 'noopener,noreferrer');
+  toast('Música enviada para o WhatsApp.', 'success');
+}
 
-  if (!isAdminLogged()) {
-    loginView.classList.remove('hidden');
-    panelView.classList.add('hidden');
-    return;
+function shareYoutubeVideo(videoId) {
+  const saved = getYtByVideoId(videoId);
+  const title = saved ? saved.title : 'Vídeo do YouTube';
+  const cat = saved ? (saved.category || 'Músicas') : 'Músicas';
+  const url = 'https://www.youtube.com/watch?v=' + videoId;
+  const text =
+    '📺 *' + title + '*\n' +
+    '🏷 Categoria: ' + cat + '\n' +
+    '🔗 ' + url + '\n' +
+    '📻 Compartilhado do *Daplay*.';
+  window.open(buildWhatsAppLink(text), '_blank', 'noopener,noreferrer');
+  toast('Vídeo enviado para o WhatsApp.', 'success');
+}
+
+function shareBibleChapter() {
+  if (!state.bibleData) { toast('Instale a Bíblia primeiro.', 'error'); return; }
+  const book = $('bibleBookSelect') ? $('bibleBookSelect').value : state.bibleLastBook;
+  const chapter = $('bibleChapterSelect') ? parseInt($('bibleChapterSelect').value) : state.bibleLastChapter;
+  if (!book || !chapter) { toast('Selecione um capítulo.', 'error'); return; }
+  const verses = (state.bibleData[book] && state.bibleData[book][chapter]) || null;
+  if (!verses || !verses.length) { toast('Capítulo sem conteúdo.', 'error'); return; }
+
+  const first = verses[0];
+  const preview = first.length > 240 ? first.slice(0, 240) + '…' : first;
+  const text =
+    '📖 *' + book + ' ' + chapter + '*\n\n' +
+    '"' + preview + '"\n\n' +
+    '📻 Compartilhado do *Daplay*.';
+  window.open(buildWhatsAppLink(text), '_blank', 'noopener,noreferrer');
+  toast('Capítulo enviado para o WhatsApp.', 'success');
+}
+
+function shareWhatsAppSmart() {
+  // Prioridade: capítulo da Bíblia aberto > vídeo do YouTube salvo > música tocando
+  if (state.currentTab === 'bible' && state.bibleData) {
+    const book = $('bibleBookSelect') ? $('bibleBookSelect').value : null;
+    const chapter = $('bibleChapterSelect') ? parseInt($('bibleChapterSelect').value) : null;
+    if (book && chapter) { shareBibleChapter(); return; }
   }
-  loginView.classList.add('hidden');
-  panelView.classList.remove('hidden');
-
-  const count = state.members.length;
-  $('membersCount').textContent = count + ' membro' + (count !== 1 ? 's' : '') + ' cadastrado' + (count !== 1 ? 's' : '');
-
-  const grid = $('membersGrid');
-  grid.innerHTML = '';
-  if (!count) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;color:var(--muted2);font-size:13px">Nenhum membro cadastrado ainda.</div>';
-    return;
+  if (state.currentType === 'youtube' && state.currentYtVideoId) {
+    shareYoutubeVideo(state.currentYtVideoId); return;
   }
-
-  state.members.forEach(m => {
-    const initial = (m.name || '?').trim().charAt(0).toUpperCase() || '?';
-    const hasPass = !!m.password;
-    const card = document.createElement('div');
-    card.className = 'member-card';
-    card.innerHTML =
-      '<div class="member-avatar">' + esc(initial) + '</div>' +
-      '<div class="member-info">' +
-        '<div class="member-name">' + esc(m.name) + '</div>' +
-        '<div class="member-email">' + esc(m.email) + '</div>' +
-        (m.role ? '<div class="member-role">' + esc(m.role) + '</div>' : '') +
-        (!hasPass ? '<span class="member-badge-temp">Sem senha</span>' : (m.firstLogin ? '<span class="member-badge-temp">Senha temporária</span>' : '')) +
-      '</div>' +
-      '<button class="icon-btn" data-pwd="' + m.id + '" title="Redefinir senha">' + ICONS.key + '</button>' +
-      '<button class="icon-btn danger" data-del="' + m.id + '" title="Excluir membro">' + ICONS.trash + '</button>';
-
-    card.querySelector('[data-pwd]').addEventListener('click', (e) => {
-      e.stopPropagation();
-      resetMemberPassword(m.id);
-    });
-    card.querySelector('[data-del]').addEventListener('click', (e) => {
-      e.stopPropagation();
-      deleteMember(m.id);
-    });
-
-    grid.appendChild(card);
-  });
-}
-
-function addMember() {
-  const name = $('memberName').value.trim();
-  const email = $('memberEmail').value.trim().toLowerCase();
-  const password = ($('memberPassword').value || '').trim();
-  const role = $('memberRole').value.trim() || 'Membro';
-
-  if (!name || !email) { toast('Preencha nome e e-mail.', 'error'); return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('E-mail inválido.', 'error'); return; }
-  if (password.length < 4) { toast('Defina uma senha inicial com pelo menos 4 caracteres.', 'error'); return; }
-  if (state.members.some(m => m.email === email)) { toast('E-mail já cadastrado.', 'error'); return; }
-
-  const newMember = {
-    id: uid('m'),
-    name,
-    email,
-    password,
-    role,
-    firstLogin: true,
-    createdAt: Date.now()
-  };
-
-  state.members.push(newMember);
-  saveJSON(LS_KEYS.members, state.members);
-
-  $('memberName').value = '';
-  $('memberEmail').value = '';
-  $('memberPassword').value = '';
-  $('memberRole').value = '';
-
-  renderMembers();
-  updateStats();
-  toast('Membro criado! Senha inicial: ' + password, 'success');
-}
-
-function resetMemberPassword(memberId) {
-  const m = state.members.find(x => x.id === memberId);
-  if (!m) return;
-  const np = prompt('Nova senha para "' + m.name + '" (mín. 4 caracteres):', '');
-  if (np === null) return;
-  const p = np.trim();
-  if (p.length < 4) { toast('Senha muito curta.', 'error'); return; }
-  m.password = p;
-  m.firstLogin = true;
-  saveJSON(LS_KEYS.members, state.members);
-  renderMembers();
-  toast('Senha redefinida para "' + m.name + '".', 'success');
-}
-
-function deleteMember(memberId) {
-  const m = state.members.find(x => x.id === memberId);
-  if (!m) return;
-  if (!confirm('Excluir o membro "' + m.name + '"?')) return;
-  state.members = state.members.filter(x => x.id !== memberId);
-  saveJSON(LS_KEYS.members, state.members);
-  renderMembers();
-  updateStats();
-  toast('Membro removido.', 'success');
+  if (state.currentType === 'local' && state.currentId) {
+    shareSong(state.currentId); return;
+  }
+  if (state.ytVideos.length) { shareYoutubeVideo(state.ytVideos[0].videoId); return; }
+  if (state.songs.length) { shareSong(state.songs[0].id); return; }
+  toast('Nada para compartilhar ainda.', 'error');
 }
 
 /* ============================================================
-   LOGIN DO MEMBRO (tela de acesso)
+   BÍBLIA
    ============================================================ */
-function doMemberLogin() {
-  const email = ($('accessEmail').value || '').trim().toLowerCase();
-  const password = ($('accessPassword').value || '').trim();
-  const errEl = $('accessError');
-  errEl.style.display = 'none';
+let currentUtterance = null;
 
-  if (!email || !password) {
-    errEl.textContent = 'Informe e-mail e senha.';
-    errEl.style.display = 'block';
-    return;
-  }
+async function installBible() {
+  const btn = $('bibleInstallBtn');
+  if (!btn) return;
+  btn.disabled = true;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Baixando...';
 
-  const member = state.members.find(m => (m.email || '').toLowerCase() === email);
-  if (!member) {
-    errEl.textContent = 'E-mail não cadastrado. Peça ao administrador para criar seu acesso.';
-    errEl.style.display = 'block';
-    return;
-  }
-  if (!member.password) {
-    errEl.textContent = 'Este membro ainda não tem senha. Peça ao administrador para redefinir.';
-    errEl.style.display = 'block';
-    return;
-  }
-  if (member.password !== password) {
-    errEl.textContent = 'Senha incorreta.';
-    errEl.style.display = 'block';
-    return;
-  }
+  try {
+    const url = 'https://raw.githubusercontent.com/thiagobodruk/bible/master/json/pt_aa.json';
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Falha na rede');
 
-  state.loggedMember = member;
-  $('accessAvatar').textContent = (member.name || '?').trim().charAt(0).toUpperCase() || '?';
-  $('accessName').textContent = member.name || 'Membro';
-  $('accessEmailShow').textContent = member.email;
-  $('accessLoginForm').classList.add('hidden');
-  $('accessMemberInfo').classList.remove('hidden');
+    const rawData = await response.json();
+    const bibleData = {};
 
-  if (member.firstLogin) {
-    toast('Bem-vindo(a)! Sua senha é temporária.', 'info');
+    rawData.forEach((book, bookIndex) => {
+      const bookName = book.name || 'Livro ' + (bookIndex + 1);
+      bibleData[bookName] = {};
+      book.chapters.forEach((chapterVerses, chapIndex) => {
+        bibleData[bookName][chapIndex + 1] = chapterVerses;
+      });
+    });
+
+    if (Object.keys(bibleData).length > 0) {
+      state.bibleData = bibleData;
+      saveJSON(LS_KEYS.bibleData, bibleData);
+      
+      $('bibleInstallView').classList.add('hidden');
+      $('bibleReadView').classList.remove('hidden');
+      initBibleReader();
+      
+      toast('Bíblia instalada com sucesso!', 'success');
+    } else {
+      throw new Error('Dados inválidos');
+    }
+  } catch (error) {
+    console.error('Erro ao instalar Bíblia:', error);
+    toast('Falha ao baixar. Verifique sua conexão e tente novamente.', 'error');
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 5 17 10"/><line x1="12" y1="5" x2="12" y2="17"/></svg> Tentar Novamente';
   }
 }
 
-function enterDaplay() {
-  const m = state.loggedMember;
-  if (!m) { toast('Faça login primeiro.', 'error'); return; }
+function initBibleReader() {
+  const bookSelect = $('bibleBookSelect');
+  const chapterSelect = $('bibleChapterSelect');
+  const textDiv = $('bibleText');
+  const audioBtn = $('bibleAudioBtn');
+  const speedSelect = $('bibleSpeedSelect');
+  
+  if (!bookSelect || !chapterSelect) return;
 
-  try {
-    localStorage.setItem(LS_KEYS.session, JSON.stringify({
-      memberId: m.id,
-      email: m.email,
-      name: m.name,
-      at: Date.now()
-    }));
-  } catch {}
+  bookSelect.innerHTML = '';
+  chapterSelect.innerHTML = '';
 
-  // marca que o membro já logou ao menos uma vez (senha deixa de ser "temporária")
-  if (m.firstLogin) {
-    m.firstLogin = false;
-    saveJSON(LS_KEYS.members, state.members);
+  const availableBooks = Object.keys(state.bibleData);
+  
+  if (!availableBooks.length) {
+    textDiv.innerHTML = 'Nenhum dado bíblico disponível.';
+    return;
   }
 
-  $('sideName').textContent = m.name || 'Membro';
-  $('sideEmail').textContent = m.email || '';
-  $('sideAvatar').textContent = (m.name || '?').trim().charAt(0).toUpperCase() || '?';
-  if ($('profileName')) $('profileName').value = m.name || '';
-  if ($('profileEmail')) $('profileEmail').value = m.email || '';
+  availableBooks.forEach(book => {
+    const opt = document.createElement('option');
+    opt.value = book;
+    opt.textContent = book;
+    bookSelect.appendChild(opt);
+  });
 
-  $('accessScreen').classList.add('hidden');
-  toast('Bem-vindo(a), ' + (m.name || 'membro') + '!', 'success');
+  function updateChapters() {
+    const book = bookSelect.value;
+    chapterSelect.innerHTML = '';
+    const chapters = Object.keys(state.bibleData[book] || {}).map(Number).sort((a,b) => a-b);
+    
+    if (!chapters.length) {
+      chapterSelect.innerHTML = '<option value="">Nenhum capítulo</option>';
+      renderChapter();
+      return;
+    }
+
+    chapters.forEach(ch => {
+      const opt = document.createElement('option');
+      opt.value = ch;
+      opt.textContent = 'Capítulo ' + ch;
+      chapterSelect.appendChild(opt);
+    });
+    renderChapter();
+  }
+
+  function renderChapter() {
+    if (currentUtterance) {
+      window.speechSynthesis.cancel();
+      currentUtterance = null;
+      audioBtn.classList.remove('playing');
+      audioBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="6 4 20 12 6 20"/></svg> Ouvir Capítulo';
+    }
+    const book = bookSelect.value;
+    const chapter = parseInt(chapterSelect.value);
+    const verses = (state.bibleData[book] && state.bibleData[book][chapter]) ? state.bibleData[book][chapter] : null;
+
+    state.bibleLastBook = book;
+    state.bibleLastChapter = chapter;
+
+    if (!verses || !verses.length) {
+      textDiv.innerHTML = '<p>Capítulo vazio.</p>';
+      return;
+    }
+
+    textDiv.innerHTML = '';
+    verses.forEach((text, idx) => {
+      const span = document.createElement('span');
+      span.className = 'verse';
+      span.innerHTML = '<span class="verse-num">' + (idx+1) + '</span>' + esc(text);
+      textDiv.appendChild(span);
+    });
+  }
+
+  bookSelect.addEventListener('change', updateChapters);
+  chapterSelect.addEventListener('change', renderChapter);
+
+  audioBtn.addEventListener('click', () => {
+    const book = bookSelect.value;
+    const chapter = parseInt(chapterSelect.value);
+    const verses = (state.bibleData[book] && state.bibleData[book][chapter]) || [];
+    if (!verses.length) return;
+
+    if (currentUtterance && window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      currentUtterance = null;
+      audioBtn.classList.remove('playing');
+      audioBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="6 4 20 12 6 20"/></svg> Ouvir Capítulo';
+      return;
+    }
+
+    const fullText = verses.map((v, i) => 'Versículo ' + (i+1) + ': ' + v).join(' ');
+    const utt = new SpeechSynthesisUtterance(fullText);
+    utt.lang = 'pt-BR';
+    utt.rate = parseFloat(speedSelect ? speedSelect.value : '1.0') || 1.0;
+
+    utt.onend = () => {
+      currentUtterance = null;
+      audioBtn.classList.remove('playing');
+      audioBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><polygon points="6 4 20 12 6 20"/></svg> Ouvir Capítulo';
+    };
+
+    currentUtterance = utt;
+    audioBtn.classList.add('playing');
+    audioBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="6" y="4" width="4" height="16" rx="1.2"/><rect x="14" y="4" width="4" height="16" rx="1.2"/></svg> Parar';
+    window.speechSynthesis.speak(utt);
+  });
+
+  updateChapters();
+}
+
+/* ============================================================
+   MEMBERS (funções básicas — não alteradas)
+   ============================================================ */
+function renderMembers() {
+  const grid = $('membersGrid'); if (!grid) return;
+  const count = state.members.length;
+  $('membersCount').textContent = count + ' membro' + (count !== 1 ? 's' : '') + ' cadastrado' + (count !== 1 ? 's' : '');
+  grid.innerHTML = '';
+  if (!count) { grid.innerHTML = '<div class="yt-empty-cat">Nenhum membro cadastrado ainda.</div>'; return; }
+  state.members.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.innerHTML =
+      '<div class="member-avatar">' + esc((m.name || '?').charAt(0).toUpperCase()) + '</div>' +
+      '<div class="member-info">' +
+        '<div class="member-name">' + esc(m.name || 'Sem nome') + '</div>' +
+        '<div class="member-email">' + esc(m.email || '—') + '</div>' +
+        (m.role ? '<div class="member-role">' + esc(m.role) + '</div>' : '') +
+      '</div>' +
+      '<button class="icon-btn danger" data-mdel="' + m.id + '" title="Remover">' + ICONS.trash + '</button>';
+    grid.appendChild(card);
+  });
+  grid.querySelectorAll('[data-mdel]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-mdel');
+      if (!confirm('Remover este membro?')) return;
+      state.members = state.members.filter(x => x.id !== id);
+      saveJSON(LS_KEYS.members, state.members);
+      renderMembers();
+      toast('Membro removido.', 'success');
+    });
+  });
 }
 
 /* ============================================================
    STATS
    ============================================================ */
 function updateStats() {
-  const nSongs = state.songs.length;
-  const nFavs = state.favorites.length;
-  const nPl = state.playlists.length;
-  const nMembers = state.members.length;
-
-  const set = (id, v) => { if ($(id)) $(id).textContent = v; };
-  set('statSongs', nSongs);
-  set('statFavs', nFavs);
-  set('statPlaylists', nPl);
-  set('statMembers', nMembers);
-  set('badgeSongs', nSongs);
-  set('badgeFavs', nFavs);
+  if ($('statSongs')) $('statSongs').textContent = state.songs.length;
+  if ($('statFavs')) $('statFavs').textContent = state.favorites.length;
+  if ($('statYt')) $('statYt').textContent = state.ytVideos.length;
+  if ($('statMembers')) $('statMembers').textContent = state.members.length;
+  if ($('badgeSongs')) $('badgeSongs').textContent = state.songs.length;
+  if ($('badgeFavs')) $('badgeFavs').textContent = state.favorites.length;
 }
 
 /* ============================================================
-   EVENTOS DE UI (ligações)
+   EVENTOS
    ============================================================ */
-function bindUI() {
+function setupEvents() {
   // Navegação
   document.querySelectorAll('[data-nav]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const nav = btn.dataset.nav;
-      if (nav) { e.preventDefault(); showPage(nav); }
-    });
+    btn.addEventListener('click', () => showPage(btn.dataset.nav));
   });
 
-  // Tema
-  const savedTheme = localStorage.getItem('daplay.theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  const tt = $('themeToggle');
-  if (tt) tt.addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-theme');
-    const nxt = cur === 'light' ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', nxt);
-    localStorage.setItem('daplay.theme', nxt);
+  // Abas superiores
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => handleTabClick(btn.dataset.tab));
   });
 
-  // Dropzone / importar
+  // Importar
+  $('importTopBtn').addEventListener('click', () => $('fileInput').click());
+  $('fileInput').addEventListener('change', (e) => {
+    if (e.target.files && e.target.files.length) importFiles(e.target.files);
+    e.target.value = '';
+  });
+
+  // Dropzone
   const dz = $('dropzone');
-  const fi = $('fileInput');
-  if (dz && fi) {
-    dz.addEventListener('click', () => fi.click());
-    dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('drag'); });
-    dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
-    dz.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dz.classList.remove('drag');
-      if (e.dataTransfer.files) importFiles(e.dataTransfer.files);
-    });
-    fi.addEventListener('change', () => {
-      if (fi.files) importFiles(fi.files);
-      fi.value = '';
-    });
-  }
-  const importTop = $('importTopBtn');
-  if (importTop) importTop.addEventListener('click', () => { showPage('home'); setTimeout(() => dz && dz.scrollIntoView({behavior:'smooth', block:'center'}), 100); });
+  dz.addEventListener('click', () => $('fileInput').click());
+  dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+  dz.addEventListener('drop', (e) => {
+    e.preventDefault(); dz.classList.remove('drag');
+    if (e.dataTransfer.files && e.dataTransfer.files.length) importFiles(e.dataTransfer.files);
+  });
 
   // Perfil
-  const pn = $('profileName'), pe = $('profileEmail'), sp = $('saveProfileBtn');
-  if (pn && pe) {
-    const prof = loadJSON(LS_KEYS.profile, { name: '', email: '' });
-    pn.value = prof.name || '';
-    pe.value = prof.email || '';
-    if (sp) sp.addEventListener('click', () => {
-      const p = { name: pn.value.trim(), email: pe.value.trim() };
-      saveJSON(LS_KEYS.profile, p);
-      $('sideName').textContent = p.name || 'Visitante';
-      $('sideEmail').textContent = p.email || 'Sem perfil';
-      $('sideAvatar').textContent = (p.name || '?').trim().charAt(0).toUpperCase() || '?';
-      toast('Perfil salvo.', 'success');
-    });
-  }
+  $('saveProfileBtn').addEventListener('click', () => {
+    const name = $('profileName').value.trim();
+    const email = $('profileEmail').value.trim();
+    if (!name || !email) { toast('Preencha nome e e-mail.', 'error'); return; }
+    saveJSON(LS_KEYS.profile, { name, email });
+    $('sideName').textContent = name; $('sideEmail').textContent = email;
+    $('sideAvatar').textContent = name.charAt(0).toUpperCase();
+    toast('Perfil salvo.', 'success');
+  });
 
   // Player
-  const play = $('playBtn');
-  if (play) play.addEventListener('click', togglePlayPause);
-  const mplay = $('mobilePlayBtn');
-  if (mplay) mplay.addEventListener('click', togglePlayPause);
-  const nx = $('nextBtn'), mnx = $('mobileNextBtn');
-  if (nx) nx.addEventListener('click', () => nextTrack(false));
-  if (mnx) mnx.addEventListener('click', () => nextTrack(false));
-  const pv = $('prevBtn'), mpv = $('mobilePrevBtn');
-  if (pv) pv.addEventListener('click', prevTrack);
-  if (mpv) mpv.addEventListener('click', prevTrack);
+  $('playBtn').addEventListener('click', togglePlayPause);
+  $('mobilePlayBtn').addEventListener('click', togglePlayPause);
+  $('prevBtn').addEventListener('click', prevTrack);
+  $('mobilePrevBtn').addEventListener('click', prevTrack);
+  $('nextBtn').addEventListener('click', () => nextTrack(false));
+  $('mobileNextBtn').addEventListener('click', () => nextTrack(false));
 
-  const sh = $('shuffleBtn'), msh = $('mobileShuffleBtn');
-  const toggleShuffle = () => { state.shuffle = !state.shuffle; renderPlayer(); };
-  if (sh) sh.addEventListener('click', toggleShuffle);
-  if (msh) msh.addEventListener('click', toggleShuffle);
+  const toggleShuffle = () => { state.shuffle = !state.shuffle; renderPlayer(); toast(state.shuffle ? 'Aleatório ativado' : 'Aleatório desativado'); };
+  $('shuffleBtn').addEventListener('click', toggleShuffle);
+  $('mobileShuffleBtn').addEventListener('click', toggleShuffle);
 
-  const rp = $('repeatBtn'), mrp = $('mobileRepeatBtn');
   const cycleRepeat = () => {
-    state.repeat = state.repeat === 'off' ? 'all' : state.repeat === 'all' ? 'one' : 'off';
+    const order = ['off', 'all', 'one'];
+    state.repeat = order[(order.indexOf(state.repeat) + 1) % 3];
     renderPlayer();
-    toast('Repetir: ' + (state.repeat === 'off' ? 'desligado' : state.repeat === 'all' ? 'tudo' : 'uma'), 'info');
+    toast(state.repeat === 'off' ? 'Repetir desativado' : state.repeat === 'all' ? 'Repetir tudo' : 'Repetir uma');
   };
-  if (rp) rp.addEventListener('click', cycleRepeat);
-  if (mrp) mrp.addEventListener('click', cycleRepeat);
+  $('repeatBtn').addEventListener('click', cycleRepeat);
+  $('mobileRepeatBtn').addEventListener('click', cycleRepeat);
 
-  const pb = $('progressBar');
-  if (pb) pb.addEventListener('input', () => {
-    if (audio.duration && isFinite(audio.duration)) {
-      audio.currentTime = (parseFloat(pb.value) / 100) * audio.duration;
-    }
+  $('progressBar').addEventListener('input', (e) => {
+    if (audio.duration && isFinite(audio.duration)) audio.currentTime = (e.target.value / 100) * audio.duration;
   });
-
-  const vb = $('volumeBar');
-  if (vb) {
-    vb.addEventListener('input', () => {
-      const v = parseFloat(vb.value) / 100;
-      audio.volume = v;
-      audio.muted = v === 0;
-      updateVolumeUI();
-    });
-    updateVolumeUI();
-  }
-  const mb = $('muteBtn');
-  if (mb) mb.addEventListener('click', () => {
-    audio.muted = !audio.muted;
-    updateVolumeUI();
+  $('volumeBar').addEventListener('input', (e) => {
+    audio.muted = false; audio.volume = e.target.value / 100; updateVolumeUI();
   });
+  $('muteBtn').addEventListener('click', () => { audio.muted = !audio.muted; updateVolumeUI(); });
 
-  // Busca / sort
-  const si = $('searchInput');
-  if (si) si.addEventListener('input', renderLibrary);
-  const ss = $('sortSelect');
-  if (ss) ss.addEventListener('change', renderLibrary);
-  const clr = $('clearLibFilterBtn');
-  if (clr) clr.addEventListener('click', () => { state.libPlaylistFilter = null; renderLibrary(); });
+  // Library
+  $('searchInput').addEventListener('input', renderLibrary);
+  $('sortSelect').addEventListener('change', renderLibrary);
 
-  // Favoritas — tocar tudo
-  const pf = $('playAllFavsBtn');
-  if (pf) pf.addEventListener('click', () => {
+  // Favorites
+  $('playAllFavsBtn').addEventListener('click', () => {
     const favs = state.favorites.map(id => getSong(id)).filter(Boolean);
     if (!favs.length) { toast('Nenhuma favorita.', 'error'); return; }
     playSong(favs[0].id, favs.map(s => s.id));
   });
 
-  // Playlists criar
-  const cp = $('createPlaylistBtn');
-  if (cp) cp.addEventListener('click', () => {
-    const name = $('newPlaylistInput').value.trim();
-    if (!name) { toast('Digite um nome.', 'error'); return; }
-    const pl = { id: uid('pl'), name, songIds: [], createdAt: Date.now() };
-    state.playlists.push(pl);
-    saveJSON(LS_KEYS.playlists, state.playlists);
-    $('newPlaylistInput').value = '';
-    renderPlaylists();
-    updateStats();
-    toast('Playlist criada.', 'success');
+  // Play all recent
+  $('playAllRecentBtn').addEventListener('click', () => {
+    const recent = state.songs.slice().sort((a, b) => (b.addedAt || 0) - (a.addedAt || 0));
+    if (!recent.length) { toast('Nenhuma música.', 'error'); return; }
+    playSong(recent[0].id, recent.map(s => s.id));
   });
-
-  const back = $('backToPlaylistsBtn');
-  if (back) back.addEventListener('click', closePlaylist);
-
-  const playPl = $('playPlaylistBtn');
-  if (playPl) playPl.addEventListener('click', () => {
-    const pl = getPlaylist(state.openPlaylistId);
-    if (!pl) return;
-    const songs = pl.songIds.map(id => getSong(id)).filter(Boolean);
-    if (!songs.length) { toast('Playlist vazia.', 'error'); return; }
-    playSong(songs[0].id, songs.map(s => s.id));
-  });
-
-  const addSongPl = $('addSongToPlaylistBtn');
-  if (addSongPl) addSongPl.addEventListener('click', openAddSongToPlaylistModal);
 
   // YouTube
-  const playYt = $('playYoutubeBtn');
-  if (playYt) playYt.addEventListener('click', () => {
+  $('playYoutubeBtn').addEventListener('click', () => {
     const url = $('youtubeInput').value.trim();
     const id = parseYouTubeId(url);
     if (!id) { toast('Link inválido.', 'error'); return; }
     playYtSaved(id);
   });
-  const saveYt = $('saveYoutubeBtn');
-  if (saveYt) saveYt.addEventListener('click', saveYtVideo);
+  $('saveYoutubeBtn').addEventListener('click', saveYtVideo);
+  $('youtubeInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') saveYtVideo(); });
 
-  document.querySelectorAll('.yt-filter-chip').forEach(c => {
-    c.addEventListener('click', () => {
-      ytFilter = c.dataset.cat;
+  // Filtros YouTube
+  document.querySelectorAll('.yt-filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      ytFilter = chip.dataset.cat;
       renderYtVideos();
     });
   });
 
-  // Admin
-  const al = $('adminLoginBtn');
-  if (al) al.addEventListener('click', () => {
-    const e = $('adminEmail').value.trim().toLowerCase();
-    const p = $('adminPassword').value;
-    const err = $('adminLoginError');
-    err.style.display = 'none';
-    if (e === ADMIN_EMAIL && p === ADMIN_PASSWORD) {
-      setAdminLogged(true);
-      renderMembers();
-      toast('Bem-vindo, admin.', 'success');
-    } else {
-      err.textContent = 'Credenciais inválidas.';
-      err.style.display = 'block';
+  // Bíblia
+  if ($('bibleInstallBtn')) $('bibleInstallBtn').addEventListener('click', installBible);
+  if ($('bibleShareBtn')) $('bibleShareBtn').addEventListener('click', shareBibleChapter);
+
+  // Compartilhar WhatsApp (botão flutuante — inteligente)
+  $('shareWaBtn').addEventListener('click', shareWhatsAppSmart);
+
+  // Delegação: ações da linha de música + compartilhar
+  document.addEventListener('click', (e) => {
+    const row = e.target.closest('.song-row');
+    if (!row) return;
+    const id = row.dataset.id;
+    const actBtn = e.target.closest('[data-act]');
+    if (!actBtn) { playSong(id, state.songs.map(s => s.id)); return; }
+    const act = actBtn.dataset.act;
+    if (act === 'play') playSong(id, state.songs.map(s => s.id));
+    else if (act === 'fav') {
+      const idx = state.favorites.indexOf(id);
+      if (idx >= 0) state.favorites.splice(idx, 1);
+      else state.favorites.push(id);
+      saveJSON(LS_KEYS.favorites, state.favorites);
+      renderAll(); updateStats();
     }
-  });
-  const alo = $('adminLogoutBtn');
-  if (alo) alo.addEventListener('click', () => {
-    setAdminLogged(false);
-    renderMembers();
-    toast('Sessão encerrada.', 'info');
-  });
-  const am = $('addMemberBtn');
-  if (am) am.addEventListener('click', addMember);
-  const fp = $('forgotPasswordBtn');
-  if (fp) fp.addEventListener('click', () => {
-    const rec = ADMIN_RECOVERY_LS + '.' + Date.now().toString(36);
-    const code = Math.random().toString(36).slice(2, 8).toUpperCase();
-    try { localStorage.setItem(rec, code); } catch {}
-    toast('Código de recuperação: ' + code, 'info');
-  });
-
-  // Tela de acesso (login de membro)
-  const al2 = $('accessLoginBtn');
-  if (al2) al2.addEventListener('click', doMemberLogin);
-  const ap = $('accessPassword');
-  if (ap) ap.addEventListener('keydown', (e) => { if (e.key === 'Enter') doMemberLogin(); });
-  const ae = $('accessEmail');
-  if (ae) ae.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('accessPassword').focus(); });
-  const aeb = $('accessEnterBtn');
-  if (aeb) aeb.addEventListener('click', enterDaplay);
-  const abb = $('accessBackBtn');
-  if (abb) abb.addEventListener('click', () => {
-    state.loggedMember = null;
-    $('accessPassword').value = '';
-    $('accessError').style.display = 'none';
-    $('accessMemberInfo').classList.add('hidden');
-    $('accessLoginForm').classList.remove('hidden');
-  });
-  const aab = $('accessAdminBtn');
-  if (aab) aab.addEventListener('click', () => {
-    $('accessScreen').classList.add('hidden');
-    showPage('members');
-  });
-
-  // Exibição inicial da sessão (se houver)
-  const sess = loadJSON(LS_KEYS.session, null);
-  if (sess && sess.email) {
-    $('sideName').textContent = sess.name || 'Membro';
-    $('sideEmail').textContent = sess.email;
-    $('sideAvatar').textContent = (sess.name || '?').trim().charAt(0).toUpperCase() || '?';
-  }
-}
-
-/* ============================================================
-   MISC — playlists helpers
-   ============================================================ */
-function openPlaylist(id) {
-  state.openPlaylistId = id;
-  $('playlistsOverview').classList.add('hidden');
-  $('playlistDetail').classList.remove('hidden');
-  renderPlaylistDetail();
-}
-
-function closePlaylist() {
-  state.openPlaylistId = null;
-  $('playlistDetail').classList.add('hidden');
-  $('playlistsOverview').classList.remove('hidden');
-}
-
-function deletePlaylist(id) {
-  if (!confirm('Excluir esta playlist?')) return;
-  state.playlists = state.playlists.filter(p => p.id !== id);
-  saveJSON(LS_KEYS.playlists, state.playlists);
-  renderPlaylists();
-  updateStats();
-  toast('Playlist excluída.', 'success');
-}
-
-function openAddSongToPlaylistModal() {
-  const pl = getPlaylist(state.openPlaylistId);
-  if (!pl) return;
-  const available = state.songs.filter(s => pl.songIds.indexOf(s.id) === -1);
-  const modal = $('modal');
-  const content = $('modalContent');
-  content.innerHTML =
-    '<h3>Adicionar à playlist</h3>' +
-    '<span class="modal-sub">' + esc(pl.name) + '</span>' +
-    (available.length
-      ? '<div class="pick-list">' + available.map(s =>
-          '<button class="pick-item" data-pick="' + s.id + '">' + ICONS.plus + '<span>' + esc(s.name) + '</span></button>'
-        ).join('') + '</div>'
-      : '<div style="text-align:center;color:var(--muted2);font-size:13px;padding:20px">Todas as músicas já estão nesta playlist.</div>') +
-    '<div class="modal-actions"><button class="btn btn-ghost" data-close="1" style="flex:1">Fechar</button></div>';
-  modal.classList.remove('hidden');
-  content.querySelector('[data-close]').addEventListener('click', () => modal.classList.add('hidden'));
-  content.querySelectorAll('[data-pick]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const sid = btn.dataset.pick;
-      if (pl.songIds.indexOf(sid) === -1) pl.songIds.push(sid);
-      saveJSON(LS_KEYS.playlists, state.playlists);
-      renderPlaylistDetail();
-      btn.remove();
-      toast('Música adicionada.', 'success');
-    });
-  });
-}
-
-/* Event delegation global para ações de linha de música e modal */
-document.addEventListener('click', (e) => {
-  const target = e.target.closest('[data-act]');
-  if (!target) return;
-  const row = target.closest('.song-row');
-  if (!row) return;
-  const songId = row.dataset.id;
-  const playlistId = row.dataset.playlistId;
-  const act = target.dataset.act;
-
-  if (act === 'play') {
-    const ids = Array.from(row.parentElement.querySelectorAll('.song-row')).map(r => r.dataset.id);
-    playSong(songId, ids);
-  } else if (act === 'fav') {
-    const idx = state.favorites.indexOf(songId);
-    if (idx === -1) { state.favorites.push(songId); toast('Adicionada às favoritas.', 'success'); }
-    else { state.favorites.splice(idx, 1); toast('Removida das favoritas.', 'info'); }
-    saveJSON(LS_KEYS.favorites, state.favorites);
-    renderAll();
-    updateStats();
-  } else if (act === 'add') {
-    openAddToPlaylistModal(songId);
-  } else if (act === 'delete') {
-    if (!confirm('Excluir esta música da biblioteca?')) return;
-    state.songs = state.songs.filter(s => s.id !== songId);
-    state.favorites = state.favorites.filter(id => id !== songId);
-    state.playlists.forEach(p => { p.songIds = p.songIds.filter(id => id !== songId); });
-    idbDel('blobs', songId).catch(() => {});
-    saveJSON(LS_KEYS.songs, state.songs);
-    saveJSON(LS_KEYS.favorites, state.favorites);
-    saveJSON(LS_KEYS.playlists, state.playlists);
-    if (state.currentId === songId) { audio.pause(); state.currentId = null; }
-    renderAll();
-    updateStats();
-    toast('Música excluída.', 'success');
-  } else if (act === 'remove' && playlistId) {
-    const pl = getPlaylist(playlistId);
-    if (pl) {
-      pl.songIds = pl.songIds.filter(id => id !== songId);
-      saveJSON(LS_KEYS.playlists, state.playlists);
-      renderPlaylistDetail();
-      toast('Removida da playlist.', 'info');
+    else if (act === 'delete') {
+      if (!confirm('Excluir esta música?')) return;
+      state.songs = state.songs.filter(s => s.id !== id);
+      state.favorites = state.favorites.filter(f => f !== id);
+      saveJSON(LS_KEYS.songs, state.songs);
+      saveJSON(LS_KEYS.favorites, state.favorites);
+      if (state.currentId === id) { audio.pause(); audio.src = ''; state.currentId = null; }
+      renderAll(); renderPlayer(); updateStats();
+      idbDel('blobs', id).catch(() => {});
+      toast('Música removida.', 'success');
     }
-  }
-});
+    else if (act === 'share') shareSong(id);
+  });
 
-function openAddToPlaylistModal(songId) {
-  const modal = $('modal');
-  const content = $('modalContent');
-  content.innerHTML =
-    '<h3>Adicionar à playlist</h3>' +
-    '<span class="modal-sub">Escolha uma playlist</span>' +
-    (state.playlists.length
-      ? '<div class="pick-list">' + state.playlists.map(p =>
-          '<button class="pick-item" data-pl="' + p.id + '">' + ICONS.list + '<span>' + esc(p.name) + '</span></button>'
-        ).join('') + '</div>'
-      : '<div style="text-align:center;color:var(--muted2);font-size:13px;padding:20px">Nenhuma playlist. Crie uma primeiro.</div>') +
-    '<div class="modal-actions"><button class="btn btn-ghost" data-close="1" style="flex:1">Fechar</button></div>';
-  modal.classList.remove('hidden');
-  content.querySelector('[data-close]').addEventListener('click', () => modal.classList.add('hidden'));
-  content.querySelectorAll('[data-pl]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const pl = getPlaylist(btn.dataset.pl);
-      if (pl && pl.songIds.indexOf(songId) === -1) {
-        pl.songIds.push(songId);
-        saveJSON(LS_KEYS.playlists, state.playlists);
-        renderPlaylists();
-        renderPlaylistDetail();
-        toast('Adicionada à playlist "' + pl.name + '".', 'success');
-      }
-      modal.classList.add('hidden');
-    });
+  // Modal fechar
+  $('modal').addEventListener('click', (e) => {
+    if (e.target.id === 'modal') $('modal').classList.add('hidden');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') $('modal').classList.add('hidden');
   });
 }
 
 /* ============================================================
-   INICIALIZAÇÃO
+   INIT
    ============================================================ */
 function init() {
-  bindUI();
+  // Perfil
+  const profile = loadJSON(LS_KEYS.profile, null);
+  if (profile) {
+    $('profileName').value = profile.name || '';
+    $('profileEmail').value = profile.email || '';
+    $('sideName').textContent = profile.name || 'Visitante';
+    $('sideEmail').textContent = profile.email || 'Sem perfil';
+    $('sideAvatar').textContent = (profile.name || '?').charAt(0).toUpperCase();
+  }
+
+  // Volume
+  updateVolumeUI();
+
+  // Bíblia já instalada?
+  if (state.bibleData && Object.keys(state.bibleData).length) {
+    $('bibleInstallView').classList.add('hidden');
+    $('bibleReadView').classList.remove('hidden');
+    initBibleReader();
+  } else {
+    $('bibleInstallView').classList.remove('hidden');
+    $('bibleReadView').classList.add('hidden');
+  }
+
+  // Tema
+  const savedTheme = localStorage.getItem('daplay.theme');
+  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+  const themeToggle = $('themeToggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('daplay.theme', next);
+    });
+  }
+
   renderAll();
   renderPlayer();
   updateStats();
-  updateVolumeUI();
+  setupEvents();
 
-  // Sempre pede login na abertura (a menos que já haja sessão de membro salva)
-  const sess = loadJSON(LS_KEYS.session, null);
-  if (sess && sess.email) {
-    // já logado — esconde a tela
-    $('accessScreen').classList.add('hidden');
-  } else {
-    $('accessScreen').classList.remove('hidden');
-    setTimeout(() => $('accessEmail').focus(), 300);
-  }
-
-  if (isAdminLogged()) renderMembers();
+  showPage('home');
 }
 
-document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
+
 </body>
 </html>
